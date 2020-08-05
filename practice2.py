@@ -7,17 +7,22 @@ Created on Tue Nov 21 14:34:07 2017
 """
 
 from mcpi.minecraft import Minecraft
+import time
 
 mc = Minecraft.create()
 
 
 while True:
-    hits=mc.events.pollBlockHits()
+    hits=mc.events.pollProjectileHits()
     if len(hits)>0:
         hit=hits[0]
         x,y,z=hit.pos.x,hit.pos.y,hit.pos.z
-        block=mc.getBlock(x,y,z)
-        mc.postToChat('恭喜你獵到'+str(block))
+        time.sleep(0.5)
+        mc.player.setTilePos(x,y,z)
+        time.sleep(0.5)
+        mc.spawnEntity(x,y,z,99)
+        
+       
 
 
 
